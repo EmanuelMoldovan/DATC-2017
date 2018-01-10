@@ -1,0 +1,14 @@
+.register-form {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.register-container {
+    text-align: center;
+    background: white;
+}
+
+.register-container .row {
+    padding: 30px;
+}

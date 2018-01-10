@@ -1,0 +1,37 @@
+<div class="container register-container">
+    <div class="row">
+        <h2>Înregistrează-te acum!</h2>
+        <span class="error" *ngIf="error" [@fallIn]='state'>{{error}}</span>
+
+        <form #formdata='ngForm' (ngSubmit)="onSubmit(formdata)" class="register-form">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Prenume</span>
+                </div>
+                <input type="text" class="form-control" placeholder="" (ngModel)="firstName" name="firstName" aria-label="Prenume" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Nume</span>
+                </div>
+                <input type="text" class="form-control" placeholder="" (ngModel)="lastName" name="lastName" aria-label="Nume" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Email</span>
+                </div>
+                <input type="text" class="form-control" placeholder="" (ngModel)="email" name="email" aria-label="Email" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Parolă</span>
+                </div>
+                <input type="password" class="form-control" placeholder="" (ngModel)="password" name="password" aria-label="Parolă" aria-describedby="basic-addon1">
+            </div>
+
+            <button type="submit" class="basic-btn">Crează cont</button>
+        </form>
+    </div>
+</div>
