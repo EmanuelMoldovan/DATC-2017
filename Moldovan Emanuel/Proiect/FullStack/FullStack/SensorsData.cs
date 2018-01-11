@@ -20,5 +20,13 @@ namespace FullStack
         public string timestamp { get; set; }
 
         public string date { get; set; }
+
+        public DateTime datetime {
+            get {
+                var time = DateTime.Now;
+
+                var newDate = new DateTime();
+                return time;
+            } }
     }
 }
