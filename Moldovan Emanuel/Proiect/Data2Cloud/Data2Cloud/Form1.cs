@@ -239,9 +239,7 @@ namespace Data2Cloud
             serialPort1.Open();
             timer1.Start();
         }
-
-
-
+        
 
         static void Upload(string data)
         {
@@ -250,23 +248,6 @@ namespace Data2Cloud
             using (var wb = new WebClient())
             {
                 var response = wb.UploadData(Url, "POST", buffer);
-            }
-        }
-        static void Upload(List<string> data)
-        {
-            var list = new List<byte[]>();
-
-            foreach (var item in data)
-            {
-                list.Add(Encoding.UTF8.GetBytes(item));
-            }
-
-            using (var wb = new WebClient())
-            {
-                foreach (var elem in list)
-                {
-                    var response = wb.UploadData(Url, "POST", elem);
-                }
             }
         }
 
