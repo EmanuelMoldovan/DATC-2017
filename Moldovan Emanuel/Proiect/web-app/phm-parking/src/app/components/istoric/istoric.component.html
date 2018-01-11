@@ -17,4 +17,9 @@
 
 <div class="my-container">
     <h4 *ngIf="configuratie">{{configuratie.date}} - {{configuratie.timestamp}}</h4>
+    <button class="btn btn-default" (click)="faster()"><<</button>
+    <button class="btn btn-default" (click)="pause()" *ngIf="pauza">Start</button>
+    <button class="btn btn-default" (click)="pause()" *ngIf="!pauza">||</button>
+    <button class="btn btn-default" (click)="slower()">>></button>
+    
 </div>

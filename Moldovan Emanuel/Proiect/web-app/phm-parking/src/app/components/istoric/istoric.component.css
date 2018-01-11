@@ -1,7 +1,9 @@
 .progress-bar {
-    transition: width 0.2s ease;
+    /* //transition: width 0.2s ease; */
+    transition: 0ms;
 }
 
 .my-container {
     margin: 10px;
+    text-align: center;
 }
