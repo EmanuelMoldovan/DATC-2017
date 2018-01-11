@@ -21,6 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EmailLoginComponent } from './components/login/email-login/email-login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { IstoricComponent } from './components/istoric/istoric.component';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -28,9 +30,15 @@ import { GlobalVariables } from './services/global-variables.service';
 import { MessageService } from './services/message.service';
 import { UsersService } from './services/users.service';
 import { ParcariService } from './services/parcari.service';
+import { DateParcariService } from './services/date-parcari.service';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
+import { EditComponent } from './components/edit/edit.component';
+
+// Pipes
+import { StatusParcarePipe } from './pipes/status-parcare.pipe';
+import { SenzorPipe } from './pipes/senzor.pipe';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAN5qYTaPq0Hj_P19z7NIdiWuq2j4LAeZI",
@@ -41,13 +49,14 @@ export const firebaseConfig = {
     messagingSenderId: "314579654874"
 };
 
-
-
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'email-login', component: EmailLoginComponent},
+  {path: 'settings', component: SettingsComponent},
+  {path: 'parcare', component: EditComponent},
+  {path: 'istoric', component: IstoricComponent}
 ];
 
 @NgModule({
@@ -59,6 +68,11 @@ const appRoutes: Routes = [
     EmailLoginComponent,
     RegisterComponent,
     ProfileComponent,
+    SettingsComponent,
+    EditComponent,
+    StatusParcarePipe,
+    IstoricComponent,
+    SenzorPipe
   ],
   imports: [
     BrowserModule,
@@ -80,7 +94,9 @@ const appRoutes: Routes = [
     AuthGuard,
     MessageService,
     UsersService,
-    ParcariService
+    ParcariService,
+    DateParcariService,
+    GlobalVariables
   ],
   bootstrap: [AppComponent]
 })

@@ -137,10 +137,27 @@ h2 {
 }
 
 agm-map {
-    height: 100vh;
+    height: 60vh;
 }
 
 html, body
 {
     height: 100%;
 }
+
+.live-item {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 10px;
+    animation: final__colourSwap 1s ease-in-out infinite;
+}
+
+@keyframes final__colourSwap {
+    50% {
+      background: transparent;
+    }
+  }

@@ -3,6 +3,9 @@ import { AuthService } from "../../services/auth.service";
 import { AgmPolygon } from "@agm/core/directives/polygon";
 import { MouseEvent, Point } from "@agm/core/services/google-maps-types";
 import { ParcariService } from "../../services/parcari.service";
+import { DateParcariService } from "../../services/date-parcari.service";
+import { Chart } from "chart.js";
+import { GlobalVariables } from "../../services/global-variables.service";
 
 @Component({
     selector: 'app-home',
@@ -11,69 +14,104 @@ import { ParcariService } from "../../services/parcari.service";
 })
 
 export class HomeComponent implements OnInit {
-    
+
     title: string = 'My first AGM project';
     lat: number = 45.7472419;
     lng: number = 21.2270123;
     markers: marker[] = [];
     paths = [];
     polygons = [];
-    polygon: polygon = new polygon();
+    polygon: parcare = new parcare();
     zoom: number = 20;
+    dateParcari = [];
+    liber: number;
+    ocupat: number;
 
-    constructor(private authService: AuthService, private parcariService: ParcariService) {
-        
+    constructor(private authService: AuthService, private parcariService: ParcariService, private dateParcareService: DateParcariService, private global: GlobalVariables) {
+
     }
 
     ngOnInit(): void {
         this.parcariService.getParcari().valueChanges().subscribe(p => {
             this.polygons = p;
         });
+
+        this.dateParcareService.getParcari().valueChanges().subscribe(p => {
+            this.dateParcari = p;
+            this.update();
+        })
+
+
+    }
+
+    update() {
+        let date = this.dateParcari[0];
+        this.liber = 0;
+        this.ocupat = 0;
+        let isLive = false;
+
+        for (let i = 0; i < date.length; i++) {
+            if (i <= this.polygons.length - 1) {
+                if (date[i] == 0) this.liber++;
+                if (date[i] == 1) this.ocupat++;
+                this.polygons[i].status = date[i];
+            }
+            if (date[i] != -1) isLive = true;
+        }
+        this.global.live = isLive;
+        let indisponibil = this.polygons.length - this.ocupat - this.liber;
+
+        setTimeout(() => {
+            let chart = new Chart('myChart', {
+                type: 'pie',
+                data: {
+                    //labels: coinHistory,
+                    datasets: [{
+                        data: [this.liber, this.ocupat, indisponibil],
+                        backgroundColor: ['green', 'red', 'yellow'],
+                    }],
+                    labels: [
+                        'Locuri libere',
+                        'Locuri ocupate',
+                        'Locuri indisponibile'
+                    ]
+                }
+            })
+        }, 100);
+        // console.log(this.polygons);
     }
 
     mapClicked($event) {
-        let marker:marker = {
+        let marker: marker = {
             lat: $event.coords.lat,
             lng: $event.coords.lng,
             draggable: true,
         };
 
         this.markers.push(marker);
-        this.polygon.markers.push(marker);
+    }
 
-        this.paths.push({lat: $event.coords.lat, lng: $event.coords.lng});
-        if (this.paths.length == 4) {
-            this.paths.push(this.paths[0]);
-            
-            this.polygon.path = this.paths;
-            this.polygons.push(this.polygon);
-            this.parcariService.addParcare(this.polygon);
-            this.polygon.markers.forEach(m => this.markers.pop());
-            this.polygon = new polygon();
-            this.paths = [];
-        }
-      }
-
-      clickedMarker(label: string, index: number) {
+    clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`)
-      }
-      
-      markerDragEnd(lat: number, lng:number, m: marker, $event) {
+    }
+
+    markerDragEnd(lat: number, lng: number, m: marker, $event) {
         console.log('dragEnd', m, $event);
-      }
+    }
 }
 
 interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
+    lat: number;
+    lng: number;
+    label?: string;
     draggable: boolean;
 }
 
-export class polygon {
+export class parcare {
     constructor() {
         this.markers = [];
     }
     path: any[];
     markers: marker[];
+    status: number;
 }

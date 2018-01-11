@@ -1,0 +1,44 @@
+.parcari {
+    margin: 10px;
+}
+
+.legenda {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.legenda-item {
+    display: inline-block;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.card-legenda {
+    width: 205px;
+    position: absolute;
+    top: 65px;
+    right: 7px;
+    background: white;
+    padding: 10px;
+    box-shadow: 5px 5px 5px grey;
+}
+
+#myChart {
+    height: 300px !important; 
+    width: 600px !important;
+    display: inline-block !important;
+}
