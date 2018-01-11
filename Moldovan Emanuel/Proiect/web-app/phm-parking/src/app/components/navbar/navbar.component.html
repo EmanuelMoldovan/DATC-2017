@@ -1,0 +1,53 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">PHM Parking</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/']">Parcare Live
+            <div class="live-item" *ngIf="global.live"></div>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="authService.afAuth.authState | async; let user;" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/parcare']">Editează</a>
+        </li>
+
+        <li class="nav-item" *ngIf="authService.afAuth.authState | async; let user;" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/istoric']">Istoric</a>
+        </li>
+
+        <li class="nav-item" *ngIf="!(authService.afAuth.authState | async); let user;" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/email-login']">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!(authService.afAuth.authState | async); let user;" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/register']">Înregistrare</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav justify-content-end">
+        <li class="nav nav-item dropdown justify-content-end" *ngIf="authService.afAuth.authState | async; let user;" >
+          <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.displayName || user.email}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="['/settings']">Setări</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()">Delogare</a>
+          </div>
+        </li>
+
+        <li class="nav navbar-nab nav-item justify-content-end">
+          <div class="nav-link" style="font-size: 12px; vertical-align: middle;  margin-top: auto; margin-bottom: auto;">
+            Developed with love by Fullstack team</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

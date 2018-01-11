@@ -1,0 +1,20 @@
+<h1 class="my-container">Istoric</h1>
+
+<!-- <div *ngFor="let d of istoric">
+    {{d.date}} - {{d.timestamp}}
+</div> -->
+
+
+
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" *ngIf="configuratie">
+    <agm-polygon *ngFor="let p of polygons; let i = index" [paths]="p.path" [fillColor]="configuratie.sensors[i] | senzorPipe | statusParcarePipe"></agm-polygon>
+</agm-map>
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar" [style.width]="progres + '%'" [attr.aria-valuenow]="progres" aria-valuemin="0"
+        aria-valuemax="100"></div>
+</div>
+
+<div class="my-container">
+    <h4 *ngIf="configuratie">{{configuratie.date}} - {{configuratie.timestamp}}</h4>
+</div>
