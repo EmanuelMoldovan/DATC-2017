@@ -25,6 +25,7 @@ namespace Data2Cloud
 
         public string[] sensor = new string[6];
         public float[] sensors = new float[] { -1, -1, -1, -1, -1 };
+        public int btn_active = 0;
 
         public Form1()
         {
@@ -140,7 +141,7 @@ namespace Data2Cloud
 
             new_info = serialPort1.ReadExisting().ToString();
 
-            if (new_info.Contains("Sensor 1"))
+            if (new_info.StartsWith("Sensor 1"))
             {
                 updateLabel8Text(new_info.Substring(10));
                 txt = new_info.Substring(10);
@@ -157,7 +158,7 @@ namespace Data2Cloud
 
                 sensors[0] = senzor1;
             }
-            else if (new_info.Contains("Sensor 2"))
+            else if (new_info.StartsWith("Sensor 2"))
             {
                 updateLabel9Text(new_info.Substring(10));
                 txt = new_info.Substring(10);
@@ -174,7 +175,7 @@ namespace Data2Cloud
 
                 sensors[1] = senzor2;
             }
-            else if (new_info.Contains("Sensor 3"))
+            else if (new_info.StartsWith("Sensor 3"))
             {
                 updateLabel10Text(new_info.Substring(10));
                 txt = new_info.Substring(10);
@@ -191,7 +192,7 @@ namespace Data2Cloud
 
                 sensors[2] = senzor3;
             }
-            else if (new_info.Contains("Sensor 4"))
+            else if (new_info.StartsWith("Sensor 4"))
             {
                 updateLabel11Text(new_info.Substring(10));
                 txt = new_info.Substring(10);
@@ -208,7 +209,7 @@ namespace Data2Cloud
 
                 sensors[3] = senzor4;
             }
-            else if (new_info.Contains("Sensor 5"))
+            else if (new_info.StartsWith("Sensor 5"))
             {
                 updateLabel12Text(new_info.Substring(10));
                 txt = new_info.Substring(10);
@@ -253,14 +254,34 @@ namespace Data2Cloud
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            if(btn_active == 1)
             {
-                sensors = sensors,
-                timestamp = DateTime.Now.ToString("HH:mm:ss"),
-                date = DateTime.Now.ToString("dd.MM.yyyy")
-            });
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    sensors = sensors,
+                    timestamp = DateTime.Now.ToString("HH:mm:ss"),
+                    date = DateTime.Now.ToString("dd.MM.yyyy")
+                });
 
-            Upload(json);
+                Upload(json);
+            }
+            
+        }
+
+        private void send2cloud_button_Click(object sender, EventArgs e)
+        {
+            if(btn_active == 0)
+            {
+                btn_active = 1;
+                send2cloud_button.Text = "Stop Uploading";
+                send2cloud_button.BackColor = Color.LimeGreen;
+            }
+            else
+            {
+                btn_active = 0;
+                send2cloud_button.Text = "Start Uploading";
+                send2cloud_button.BackColor = Color.Red;
+            }
         }
     }
 }

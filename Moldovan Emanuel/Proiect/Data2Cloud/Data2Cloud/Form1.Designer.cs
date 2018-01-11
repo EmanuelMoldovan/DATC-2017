@@ -45,6 +45,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.send2cloud_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -185,11 +186,24 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // send2cloud_button
+            // 
+            this.send2cloud_button.BackColor = System.Drawing.Color.Red;
+            this.send2cloud_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.send2cloud_button.Location = new System.Drawing.Point(324, 15);
+            this.send2cloud_button.Name = "send2cloud_button";
+            this.send2cloud_button.Size = new System.Drawing.Size(116, 41);
+            this.send2cloud_button.TabIndex = 10;
+            this.send2cloud_button.Text = "Start Uploading";
+            this.send2cloud_button.UseVisualStyleBackColor = false;
+            this.send2cloud_button.Click += new System.EventHandler(this.send2cloud_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(481, 287);
+            this.Controls.Add(this.send2cloud_button);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label11);
@@ -228,6 +242,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button send2cloud_button;
     }
 }
 
